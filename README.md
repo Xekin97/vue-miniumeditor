@@ -5,7 +5,7 @@ npm install vue-miniumeditor --save
 ```
 打包生产环境
 ```
-npm build
+npm run build
 ```
 基于 百度UMEditor 的 VUE 版本， 原作是[JakeLaoyu](https://github.com/JakeLaoyu)
 在基础上增加了 convertImageToBase64Enable config的参数，支持剪贴板文件或者拖拽图片到编辑器以base64位生成srcData的img图片
