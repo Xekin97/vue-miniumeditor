@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <a href="javascript:void(0)" @click="getContent">获取内容</a>
+    123123
     <v-ueditor
       id="ueditor"
       :config="config"
@@ -12,31 +12,36 @@
 </template>
 
 <script>
-
+import vUeditor from '../components/v-ueditor.vue'
 export default {
   name: 'app',
+  components:{ vUeditor},
   data () {
     return {
       ue: '',
       content: '',
       config: {
-
+            convertImageToBase64Enable:true,
+            initialFrameWidth:800, //编辑器宽高
+            initialFrameHeight:400,
+            toolbar: [
+            'source | fontfamily paragraph fontsize | undo redo | bold italic underline strikethrough | superscript subscript | forecolor backcolor | removeformat |',
+            'insertorderedlist insertunorderedlist | selectall cleardoc',
+            '| justifyleft justifycenter justifyright justifyjustify |',
+            'link unlink | emotion base64Image video',
+            '| inserttable insertrow insertcol deleterow deletecol splittocells mergecells',
+            '| horizontal print preview fullscreen', 'drafts', 'formula'
+            ]
       }
     }
   },
   methods: {
     ueditorReady (ue) {
-      console.log('Ready')
       this.ue = ue
-      // this.ue.setContent('v-ueditor')
     },
     ueditorChange (ue) {
-      console.log(ue.getContent())
+      console.log(ue)
     },
-    getContent () {
-      console.log(this.ue.getContent())
-      console.log(window.UM.getEditor('ueditor').getContent())
-    }
   },
   mounted () {
     setTimeout(() => {
@@ -50,7 +55,6 @@ export default {
 #app {
   text-align: center;
 }
-
 a {
   color: #42b983;
 }

@@ -12,7 +12,153 @@
 
     commands: {},
 
-    I18N: {},
+    I18N: {
+      'zh-cn':{
+          'labelMap':{
+              'anchor':'锚点', 'undo':'撤销', 'redo':'重做', 'bold':'加粗', 'indent':'首行缩进', 'snapscreen':'截图',
+              'italic':'斜体', 'underline':'下划线', 'strikethrough':'删除线', 'subscript':'下标','fontborder':'字符边框',
+              'superscript':'上标', 'formatmatch':'格式刷', 'source':'源代码', 'blockquote':'引用',
+              'pasteplain':'纯文本粘贴模式', 'selectall':'全选', 'print':'打印', 'preview':'预览',
+              'horizontal':'分隔线', 'removeformat':'清除格式', 'time':'时间', 'date':'日期',
+              'unlink':'取消链接', 'inserttable':'插入表格', 'insertrow':'前插入行', 'insertcol':'前插入列', 'mergeright':'右合并单元格', 'mergedown':'下合并单元格',
+              'deleterow':'删除行', 'deletecol':'删除列', 'splittorows':'拆分成行', 'splittocols':'拆分成列', 'splittocells':'完全拆分单元格',
+              'mergecells':'合并多个单元格', 'deletetable':'删除表格', 'cleardoc':'清空文档','insertparagraphbeforetable':"表格前插入行",'insertcode':'代码语言','fontfamily':'字体', 'fontsize':'字号', 'paragraph':'段落格式', 'image':'图片','base64Image':'插入图片',
+              'edittable':'表格属性','edittd':'单元格属性', 'link':'超链接','emotion':'表情', 'spechars':'特殊字符', 'searchreplace':'查询替换', 'map':'百度地图', 'gmap':'Google地图',
+              'video':'视频', 'help':'帮助', 'justifyleft':'居左对齐', 'justifyright':'居右对齐', 'justifycenter':'居中对齐',
+              'justifyjustify':'两端对齐', 'forecolor':'字体颜色', 'backcolor':'背景色', 'insertorderedlist':'有序列表',
+              'insertunorderedlist':'无序列表', 'fullscreen':'全屏', 'directionalityltr':'从左向右输入', 'directionalityrtl':'从右向左输入',
+              'rowspacingtop':'段前距', 'rowspacingbottom':'段后距', 'highlightcode':'插入代码', 'pagebreak':'分页', 'insertframe':'插入Iframe', 'imagenone':'默认',
+              'imageleft':'左浮动', 'imageright':'右浮动', 'attachment':'附件', 'imagecenter':'居中', 'wordimage':'图片转存',
+              'lineheight':'行间距','edittip' :'编辑提示','customstyle':'自定义标题', 'autotypeset':'自动排版', 'webapp':'百度应用',
+              'touppercase':'字母大写', 'tolowercase':'字母小写','background':'背景','template':'模板','scrawl':'涂鸦','music':'音乐',
+              'drafts': '草稿箱', 'formula':'数学公式'
+          },
+          'paragraph':{'p':'段落', 'h1':'标题 1', 'h2':'标题 2', 'h3':'标题 3', 'h4':'标题 4', 'h5':'标题 5', 'h6':'标题 6'},
+          'fontfamily':{
+              'songti':'宋体',
+              'kaiti':'楷体',
+              'heiti':'黑体',
+              'lishu':'隶书',
+              'yahei':'微软雅黑',
+              'andaleMono':'andale mono',
+              'arial': 'arial',
+              'arialBlack':'arial black',
+              'comicSansMs':'comic sans ms',
+              'impact':'impact',
+              'timesNewRoman':'times new roman'
+          },
+          'ok':"确认",
+          'cancel':"取消",
+          'closeDialog':"关闭对话框",
+          'tableDrag':"表格拖动必须引入uiUtils.js文件！",
+          'autofloatMsg':"工具栏浮动依赖编辑器UI，您首先需要引入UI文件!",
+          'anthorMsg':"链接",
+          'clearColor':'清空颜色',
+          'standardColor':'标准颜色',
+          'themeColor':'主题颜色',
+          'property':'属性',
+          'default':'默认',
+          'modify':'修改',
+          'justifyleft':'左对齐',
+          'justifyright':'右对齐',
+          'justifycenter':'居中',
+          'justify':'默认',
+          'clear':'清除',
+          'anchorMsg':'锚点',
+          'delete':'删除',
+          'clickToUpload':"点击上传",
+          'unset':'尚未设置语言文件',
+          't_row':'行',
+          't_col':'列',
+          'more':'更多',
+          'pasteOpt':'粘贴选项',
+          'pasteSourceFormat':"保留源格式",
+          'tagFormat':'只保留标签',
+          'pasteTextFormat':'只保留文本',
+      
+          //===============dialog i18N=======================
+          'image':{
+              'static':{
+                  'lang_tab_local':"本地上传",
+                  'lang_tab_imgSearch':"网络图片",
+                  'lang_input_dragTip':"支持图片拖拽上传",
+                  'lang_btn_add':"添加"
+              },
+              'uploadError': '上传出错'
+          },
+          'emotion':{
+              'static':{
+                  'lang_input_choice':'精选',
+                  'lang_input_Tuzki':'兔斯基',
+                  'lang_input_BOBO':'BOBO',
+                  'lang_input_lvdouwa':'绿豆蛙',
+                  'lang_input_babyCat':'baby猫',
+                  'lang_input_bubble':'泡泡',
+                  'lang_input_youa':'有啊'
+              }
+          },
+          'gmap':{
+              'static':{
+                  'lang_input_address':'地址',
+                  'lang_input_search':'搜索',
+                  'address':{'value':"北京"}
+              },
+              'searchError':'无法定位到该地址!'
+          },
+          'link':{
+              'static':{
+                  'lang_input_text':'文本内容：',
+                  'lang_input_url':'链接地址：',
+                  'lang_input_title':'标题：',
+                  'lang_input_target':'是否在新窗口打开：'
+              },
+              'validLink':'只支持选中一个链接时生效',
+              'httpPrompt':'您输入的超链接中不包含http等协议名称，默认将为您添加http://前缀'
+          },
+          'map':{
+              'static':{
+                  'lang_city':"城市",
+                  'lang_address':"地址",
+                  'city':{'value':"北京"},
+                  'lang_search':"搜索",
+                  'lang_dynamicmap':"插入动态地图"
+              },
+              'cityMsg':"请选择城市",
+              'errorMsg':"抱歉，找不到该位置！"
+          },
+          'video':{
+              'static':{
+                  'lang_tab_insertV':"插入视频",
+                  'lang_video_url':"视频网址",
+                  'lang_video_size':"视频尺寸",
+                  'lang_videoW':"宽度",
+                  'lang_videoH':"高度",
+                  'lang_alignment':"对齐方式",
+                  'videoSearchTxt':{'value':"请输入搜索关键字！"},
+                  'videoType':{'options':["全部", "热门", "娱乐", "搞笑", "体育", "科技", "综艺"]},
+                  'videoSearchBtn':{'value':"百度一下"},
+                  'videoSearchReset':{'value':"清空结果"}
+              },
+              'numError':"请输入正确的数值，如123,400",
+              'floatLeft':"左浮动",
+              'floatRight':"右浮动",
+              'default':"默认",
+              'block':"独占一行",
+              'urlError':"输入的视频地址有误，请检查后再试！",
+              'loading':" &nbsp;视频加载中，请等待……",
+              'clickToSelect':"点击选中",
+              'goToSource':'访问源视频',
+              'noVideo':" &nbsp; &nbsp;抱歉，找不到对应的视频，请重试！"
+          },
+          'formula':{
+              'static':{
+                  'lang_tab_common':'常用公式',
+                  'lang_tab_symbol':'符号',
+                  'lang_tab_letter':'字母'
+              }
+          }
+      }
+    },
 
     version: '1.2.2'
   }
@@ -1064,21 +1210,21 @@
     return tmpNode
   }
   var attrFix = ie && browser.version < 9 ? {
-      tabindex: 'tabIndex',
-      readonly: 'readOnly',
-      'for': 'htmlFor',
-      'class': 'className',
-      maxlength: 'maxLength',
-      cellspacing: 'cellSpacing',
-      cellpadding: 'cellPadding',
-      rowspan: 'rowSpan',
-      colspan: 'colSpan',
-      usemap: 'useMap',
-      frameborder: 'frameBorder'
-    } : {
-      tabindex: 'tabIndex',
-      readonly: 'readOnly'
-    },
+        tabindex: 'tabIndex',
+        readonly: 'readOnly',
+        'for': 'htmlFor',
+        'class': 'className',
+        maxlength: 'maxLength',
+        cellspacing: 'cellSpacing',
+        cellpadding: 'cellPadding',
+        rowspan: 'rowSpan',
+        colspan: 'colSpan',
+        usemap: 'useMap',
+        frameborder: 'frameBorder'
+      } : {
+        tabindex: 'tabIndex',
+        readonly: 'readOnly'
+      },
     styleBlock = utils.listToMap([
       '-webkit-box', '-moz-box', 'block',
       'list-item', 'table', 'table-row-group',
@@ -1473,16 +1619,6 @@
      * @see UE.dom.domUtils.clearEmptySibling(Node)
      */
 
-    /**
-     * 清除node节点左右连续为空的兄弟inline节点， 如果ignoreNext的值为true，
-     * 则忽略对右边兄弟节点的操作， 如果ignorePre的值为true，则忽略对左边兄弟节点的操作。
-     * @method clearEmptySibling
-     * @param { Node } node 执行的节点对象， 如果该节点的左右连续的兄弟节点是空的inline节点，
-     * @param { Boolean } ignoreNext 是否忽略忽略对右边的兄弟节点的操作
-     * @param { Boolean } ignorePre 是否忽略忽略对左边的兄弟节点的操作
-     * 则这些兄弟节点将被删除
-     * @see UE.dom.domUtils.clearEmptySibling(Node)
-     */
     clearEmptySibling: function (node, ignoreNext, ignorePre) {
       function clear (next, dir) {
         var tmpNode
@@ -3259,7 +3395,6 @@
         zIndex: 999,
         enterTag: 'p',
         lang: 'zh-cn',
-        langPath: me.options.UMEDITOR_HOME_URL + 'lang/',
         theme: 'default',
         themePath: me.options.UMEDITOR_HOME_URL + 'themes/',
         allHtmlEnabled: false,
@@ -3268,20 +3403,7 @@
         excludePlugins: ''
       })
       me.plugins = {}
-      if (!utils.isEmptyObject(UM.I18N)) {
-        // 修改默认的语言类型
-        me.options.lang = checkCurLang(UM.I18N)
-        loadPlugins(me)
-      } else {
-        utils.loadFile(document, {
-          src: me.options.langPath + me.options.lang + '/' + me.options.lang + '.js',
-          tag: 'script',
-          type: 'text/javascript',
-          defer: 'defer'
-        }, function () {
-          loadPlugins(me)
-        })
-      }
+      loadPlugins(me)
     }
     Editor.prototype = {
       /**
@@ -5696,6 +5818,7 @@
       me.execCommand('insertHtml', html.join(''), true)
     }
   }
+
   /// import core
   /// commands 段落格式,居左,居右,居中,两端对齐
   /// commandsName  JustifyLeft,JustifyCenter,JustifyRight,JustifyJustify
@@ -7227,43 +7350,6 @@
     })
   }
 
-  // UM.plugins['removeformat'] = function () {
-  //    var me = this;
-  //    me.commands['removeformat'] = {
-  //        execCommand: function () {
-  //            me.document.execCommand('removeformat');
-  //
-  //            /* 处理ie8和firefox选区有链接时,清除格式的bug */
-  //            if (browser.gecko || browser.ie8 || browser.webkit) {
-  //                var nativeRange = this.selection.getNative().getRangeAt(0),
-  //                    common = nativeRange.commonAncestorContainer,
-  //                    rng = me.selection.getRange(),
-  //                    bk = rng.createBookmark();
-  //
-  //                function isEleInBookmark(node, bk){
-  //                    if ( (domUtils.getPosition(node, bk.start) & domUtils.POSITION_FOLLOWING) &&
-  //                        (domUtils.getPosition(bk.end, node) & domUtils.POSITION_FOLLOWING) ) {
-  //                        return true;
-  //                    } else if ( (domUtils.getPosition(node, bk.start) & domUtils.POSITION_CONTAINS) ||
-  //                        (domUtils.getPosition(node, bk.end) & domUtils.POSITION_CONTAINS) ) {
-  //                        return true;
-  //                    }
-  //                    return false;
-  //                }
-  //
-  //                $(common).find('a').each(function (k, a) {
-  //                    if ( isEleInBookmark(a, bk) ) {
-  //                        a.removeAttribute('style');
-  //                    }
-  //                });
-  //
-  //            }
-  //        }
-  //    };
-  //
-  // };
-  //
-
   UM.plugins['removeformat'] = function () {
     var me = this
     me.setOpt({
@@ -7871,6 +7957,7 @@
               if (file.getAsFile) file = file.getAsFile()
               if (file && file.size > 0 && /image\/\w+/i.test(file.type)) {
                 me.getOpt('convertImageToBase64Enable') ? insertBase64Image(file, me) : sendAndInsertImage(file, me);
+                // insertBase64Image(file, me)
                 hasImg = true
               }
             }
@@ -7968,6 +8055,12 @@
         return iframe && iframe.contentWindow.formula.getLatex()
       }
     }
+  }
+  /**
+ * 表格插件
+ */
+  UM.plugins['table'] = function(){
+
   }
 
   /**
@@ -9607,22 +9700,22 @@
 
   UM.registerUI('bold italic redo undo underline strikethrough superscript subscript insertorderedlist insertunorderedlist ' +
     'cleardoc selectall link unlink print preview justifyleft justifycenter justifyright justifyfull removeformat horizontal drafts',
-  function (name) {
-    var me = this
-    var $btn = $.eduibutton({
-      icon: name,
-      click: function () {
-        me.execCommand(name)
-      },
-      title: this.getLang('labelMap')[name] || ''
-    })
+      function (name) {
+        var me = this
+        var $btn = $.eduibutton({
+          icon: name,
+          click: function () {
+            me.execCommand(name)
+          },
+          title: this.getLang('labelMap')[name] || ''
+        })
 
-    this.addListener('selectionchange', function () {
-      var state = this.queryCommandState(name)
-      $btn.edui().disabled(state == -1).active(state == 1)
-    })
-    return $btn
-  }
+        this.addListener('selectionchange', function () {
+          var state = this.queryCommandState(name)
+          $btn.edui().disabled(state == -1).active(state == 1)
+        })
+        return $btn
+      }
   );
 
   /**
@@ -9667,7 +9760,6 @@
     })
 
     UM.commands[ 'fullscreen' ] = {
-
       execCommand: function (cmdName) {
         Fullscreen.getInstance(this).toggle()
       },
@@ -10010,7 +10102,7 @@
     // 开始监听
     Fullscreen.listen()
   })()
-  UM.registerUI('link image video map formula', function (name) {
+  UM.registerUI('link image video map', function (name) {
     var me = this, currentRange, $dialog,
       opt = {
         title: (me.options.labelMap && me.options.labelMap[name]) || me.getLang('labelMap.' + name),
@@ -10030,6 +10122,7 @@
     }, function () {
       // 调整数据
       var data = UM.getWidgetData(name)
+      console.log('data',data)
       if (!data) return
       if (data.buttons) {
         var ok = data.buttons.ok
@@ -10037,6 +10130,7 @@
           opt.oklabel = ok.label || me.getLang('ok')
           if (ok.exec) {
             opt.okFn = function () {
+              console.log('ok proxy')
               return $.proxy(ok.exec, null, me, $dialog)()
             }
           }
@@ -10046,6 +10140,7 @@
           opt.cancellabel = cancel.label || me.getLang('cancel')
           if (cancel.exec) {
             opt.cancelFn = function () {
+              console.log('cancel proxy')
               return $.proxy(cancel.exec, null, me, $dialog)()
             }
           }
@@ -10053,18 +10148,18 @@
       }
       data.width && (opt.width = data.width)
       data.height && (opt.height = data.height)
-
       $dialog = $.eduimodal(opt)
-
+      
       $dialog.attr('id', 'edui-dialog-' + name).addClass('edui-dialog-' + name)
-        .find('.edui-modal-body').addClass('edui-dialog-' + name + '-body')
-
+      .find('.edui-modal-body').addClass('edui-dialog-' + name + '-body')
+      
       $dialog.edui().on('beforehide', function () {
         var rng = me.selection.getRange()
         if (rng.equals(currentRange)) {
           rng.select()
         }
       }).on('beforeshow', function () {
+        // if(name === 'image') return
         var $root = this.root(),
           win = null,
           offset = null
@@ -10090,7 +10185,7 @@
         UM.setWidgetBody(name, $dialog, me)
         UM.setTopEditor(me)
       }).on('afterbackdrop', function () {
-        this.$backdrop.css('zIndex', me.getOpt('zIndex') + 1).appendTo(me.$container.find('.edui-dialog-container'))
+          this.$backdrop.css('zIndex', me.getOpt('zIndex') + 1).appendTo(me.$container.find('.edui-dialog-container'))
         $dialog.css('zIndex', me.getOpt('zIndex') + 2)
       }).on('beforeok', function () {
         try {
@@ -10544,7 +10639,36 @@
       return options
     }
   })
-
+  UM.registerUI('base64Image', function (name){
+    var me = this;
+    var $btn = $.eduibutton({
+      icon: 'image',
+      title: this.getLang('labelMap')[name] || '',
+      click: function(){
+        var image = '<input type="file" class="edui-base64ImgFile" style="display:none">'
+        me.$container.append(image)
+        var imageInput = me.$container.find('.edui-base64ImgFile')[0]
+        imageInput.onchange = function (e) {
+          var file = imageInput.files[0];
+          var reader = new FileReader()
+          var imgFile;
+          reader.onload = function(e) {
+            imgFile = e.target.result
+            me.$container.find('.edui-body-container').append('<p><img src="'+ imgFile +'"/></p>')
+            imageInput.remove()
+          }
+          reader.readAsDataURL(file)
+        }
+        imageInput.click()
+      },
+    })
+    this.addListener('selectionchange',function(){
+      //切换为不可编辑时，把自己变灰
+      var state = this.queryCommandState(name);
+      $btn.edui().disabled(state == -1).active(state == 1)
+    });
+    return $btn
+  })
   UM.registerUI('forecolor backcolor', function (name) {
     function getCurrentColor () {
       return domUtils.getComputedStyle($colorLabel[0], 'background-color')
@@ -10607,4 +10731,90 @@
 
     return $btn
   })
+  // 表格插件mini版本 只支持 插入表格 插入行 插入列 删除行 删除列 选择合并单元格 选择拆分单元格
+  UM.registerUI('inserttable insertrow insertcol deleterow deletecol splittocells mergecells', function(name){
+    var me = this;
+    var $btn = $.eduibutton({
+      icon: name,
+      title: this.getLang('labelMap')[name] || '',
+      click: function() {
+        me.execCommand(name)
+      }
+    })
+    this.addListener('selectionchange',function(){
+      //切换为不可编辑时，把自己变灰
+      var state = this.queryCommandState(name);
+      $btn.edui().disabled(state == -1).active(state == 1)
+    });
+    return $btn
+})  
+UM.commands['inserttable'] = {
+  execCommand: function(){
+    var me = this;
+    var icon = me.$container.find('.edui-btn-inserttable').find('.edui-icon-inserttable');
+    // 获取当前鼠标指的表格
+    function getCell(e) {
+      if(e.target.id === 'hoverDefaultLay' || e.target.id === 'hoverOverLay'){
+        console.log(e.offsetY, e.offsetX)
+        var mY = e.offsetY
+        var mX = e.offsetX
+        var tr = Math.ceil(mY / 20) 
+        var td = Math.ceil(mX / 20)
+        changeSpan(tr,td)
+      }else{
+        nointable()
+        return
+      }
+    }
+    function nointable(){
+      icon.find('#tableFrameSpan').html('0 行 0 列')
+      icon.find('#hoverOverLay').css('width',0 +'px')
+      icon.find('#hoverOverLay').css('height',0 +'px')
+    }
+    function changeSpan(row,col){
+        var span = row +' 行 '+ col +' 列'
+        icon.find('#tableFrameSpan').html(span)
+        icon.find('#hoverOverLay').css('width',col * 20 +'px')
+        icon.find('#hoverOverLay').css('height',row * 20 +'px')
+    }
+    if(icon.find('.edui-toolbar-tableFrame').length !== 0){
+      
+      icon.find('.edui-toolbar-tableFrame').remove()
+      return
+    }
+    icon.append('<div class="edui-toolbar-tableFrame"><span id="tableFrameSpan">0 行 0 列</span><div id="hoverDefaultLay"><div id="hoverOverLay"></div></div></div>');
+    icon.find('.edui-toolbar-tableFrame').bind('mousemove', getCell)
+    icon.find('.edui-toolbar-tableFrame').bind('mouseleave', nointable)
+  }
+}
+UM.commands['insertcol'] = {
+  execCommand: function(){
+    alert('insertcol')
+  }
+}
+UM.commands['deleterow'] = {
+  execCommand: function(){
+    alert('deleterow')
+  }
+}
+UM.commands['insertrow'] = {
+  execCommand: function(){
+    alert('insertrow')
+  }
+}
+UM.commands['deletecol'] = {
+  execCommand: function(){
+    alert('deletecol')
+  }
+}
+UM.commands['splittocells'] = {
+  execCommand: function(){
+    alert('splittocells')
+  }
+}
+UM.commands['mergecells'] = {
+  execCommand: function(){
+    alert('mergecells')
+  }
+}
 })(jQuery)

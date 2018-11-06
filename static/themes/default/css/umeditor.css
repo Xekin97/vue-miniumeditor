@@ -212,6 +212,65 @@
 .edui-btn-toolbar .edui-btn .edui-icon-formula {
     background-position: -80px -20px;
 }
+.edui-btn-toolbar .edui-btn .edui-icon-inserttable{
+    position: relative;
+    background-position: -580px -20px;
+}
+.edui-btn-toolbar .edui-btn .edui-icon-insertrow{
+    background-position: -478px -76px;
+}
+.edui-btn-toolbar .edui-btn .edui-icon-insertcol{
+    background-position: -455px -76px;
+}
+.edui-btn-toolbar .edui-btn .edui-icon-deleterow{
+    background-position: -660px -20px;
+}
+.edui-btn-toolbar .edui-btn .edui-icon-deletecol{
+    background-position: -640px -20px;
+}
+.edui-btn-toolbar .edui-btn .edui-icon-splittocells{
+    background-position: -800px -20px;
+}
+.edui-btn-toolbar .edui-btn .edui-icon-mergecells{
+    background-position: -760px -20px;
+}
+.edui-btn-toolbar .edui-btn .edui-icon-deletetable{
+    background-position: -620px -20px;
+}
+.edui-btn-toolbar .edui-btn .edui-icon-inserttable .edui-toolbar-tableFrame{
+    position: absolute;
+    top: 25px;
+    left: 0;
+    border-radius: 10px;
+    height: 230px;
+    width: 220px;
+    background-color: #fff;
+    padding: 0 10px;
+    box-sizing: border-box;
+    border: 1px solid #97c4e9;
+    z-index: 5;
+}
+.edui-btn-toolbar .edui-btn .edui-icon-inserttable .edui-toolbar-tableFrame span{
+    font-size: 14px;
+}
+.edui-btn-toolbar .edui-btn .edui-icon-inserttable .edui-toolbar-tableFrame table{
+    display: block;
+    position: relative;
+}
+.edui-btn-toolbar .edui-btn .edui-icon-inserttable .edui-toolbar-tableFrame #hoverDefaultLay #hoverOverLay{
+    position: absolute;
+    background: url(../images/highlighted.gif) repeat;
+    background-size: 20px 20px;
+}
+.edui-btn-toolbar .edui-btn .edui-icon-inserttable .edui-toolbar-tableFrame #hoverDefaultLay{
+    position: relative;
+    margin: 0 auto;
+    width: 200px;
+    height: 200px;
+    background: url(../images/unhighlighted.gif) repeat;
+    background-size: 20px 20px;
+}
+
 .edui-btn-toolbar .edui-splitbutton{
     position: relative;
     display: inline-block ;

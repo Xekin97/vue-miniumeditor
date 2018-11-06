@@ -27,19 +27,11 @@
 
             $.each($imgs, function (index, node) {
                 $(node).removeAttr("width").removeAttr("height");
-
-//                if (node.width > editor.options.initialFrameWidth) {
-//                    me.scale(node, editor.options.initialFrameWidth -
-//                        parseInt($(editor.body).css("padding-left"))  -
-//                        parseInt($(editor.body).css("padding-right")));
-//                }
-
                 return arr.push({
                     _src: node.src,
                     src: node.src
                 });
             });
-
             return arr;
         },
         scale: function (img, max, oWidth, oHeight) {
@@ -143,7 +135,6 @@
             '<form class="edui-image-form" method="post" enctype="multipart/form-data" target="up">' +
             '<input style=\"filter: alpha(opacity=0);\" class="edui-image-file" type="file" hidefocus name="upfile" accept="image/gif,image/jpeg,image/png,image/jpg,image/bmp"/>' +
             '</form>' +
-
             '</div>',
         init: function (editor, $w) {
             var me = this;
@@ -194,11 +185,9 @@
             }
         },
         submit: function (callback) {
-
             var me = this,
                 input = $( '<input style="filter: alpha(opacity=0);" class="edui-image-file" type="file" hidefocus="" name="upfile" accept="image/gif,image/jpeg,image/png,image/jpg,image/bmp">'),
                 input = input[0];
-
             $(me.dialog).delegate( ".edui-image-file", "change", function ( e ) {
 
                 if ( !this.parentNode ) {
@@ -235,7 +224,6 @@
         },
         //更新上传框
         updateView: function () {
-
             if ( Upload.showCount !== 0 ) {
                 return;
             }
@@ -291,9 +279,9 @@
         },
         toggleMask: function (html) {
             var me = this;
-
             var $mask = $(".edui-image-mask", me.dialog);
             if (html) {
+                return
                 if (!(UM.browser.ie && UM.browser.version <= 9)) {
                     $(".edui-image-dragTip", me.dialog).css( "display", "none" );
                 }

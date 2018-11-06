@@ -61,11 +61,7 @@ export default {
         this.$emit('ready', this.instance)
       })
       this.instance.addListener('contentChange', () => {
-        this.$emit('change', this.instance.body.innerText)
-        this.$emit('changeHTML', this.instance.body.innerHtml)
-      })
-      this.instance.addListener('focus',() => {
-        this.$emit('focus')
+        this.$emit('change', this.instance.body.innerHTML)
       })
     }
   },
