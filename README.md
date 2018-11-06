@@ -1,7 +1,7 @@
 # vue-miniueditor
 安装
 ```
-npm install vue-miniumeditor --save
+npm install vue-miniueditor --save
 ```
 打包生产环境
 ```
