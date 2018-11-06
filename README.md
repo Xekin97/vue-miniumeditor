@@ -16,6 +16,9 @@ config:{
   convertImageToBase64Enable:true
 }
 ```
+-----------------------------------------------------@1.0.8
+新增插件 base64Image，可直接在config toolbar里面配置，可以直接将本地图片转为base64位编码并插入编辑器中
+
 
 ![效果预览](https://github.com/Xekin-FE/vue-miniumeditor/blob/master/src/assets/ReadMe.png)
 
