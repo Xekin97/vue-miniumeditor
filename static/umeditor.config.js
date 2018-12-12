@@ -128,7 +128,8 @@
       'source | fontfamily paragraph fontsize | undo redo | bold italic underline strikethrough | superscript subscript | forecolor backcolor | removeformat |',
       'insertorderedlist insertunorderedlist | selectall cleardoc',
       '| justifyleft justifycenter justifyright justifyjustify |',
-      'link unlink | emotion image video  | map',
+      '| imagenone imageleft imageright imagecenter |',
+      'link unlink | emotion imageUploadBySelf image video  | map',
       '| horizontal print preview fullscreen', 'drafts', 'formula'
     ],
 

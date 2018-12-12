@@ -8,7 +8,7 @@
 <script>
 import $ from '../../static/third-party/jquery.js'
 window.$ = window.jQuery = $
-window.UMEDITOR_HOME_URL = '//jakelaoyu.github.io/v-umeditor/static/'
+window.UMEDITOR_HOME_URL = 'https://jakelaoyu.github.io/v-umeditor/static/'
 require('../../static/umeditor.config.js')
 require('../../static/umeditor.js')
 
@@ -52,6 +52,9 @@ export default {
     setContent () {
       this.instance.setContent(this.content)
     },
+    getContent () {
+      return this.instance.getContent()
+    },
     init () {
       this.instance = UM.getEditor(this.id, {
         initialFrameWidth: '100%',
@@ -63,6 +66,12 @@ export default {
       this.instance.addListener('contentChange', () => {
         this.$emit('change', this.instance.body.innerHTML)
       })
+      if(this.config.imageUploadBySelf){
+        this.instance.addListener('imageUpload', (name, file, callback) => {
+          console.log('i got it', file, 'is it?')
+          this.$emit('imageUpload', file, callback)
+        })
+      }
     }
   },
   mounted () {

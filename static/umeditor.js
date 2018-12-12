@@ -419,6 +419,7 @@
  * @desc UEditor封装使用的静态工具函数
  * @import editor.js
  */
+
   var utils = UM.utils = {
     /**
      * 遍历数组，对象，nodeList
@@ -5818,6 +5819,125 @@
       me.execCommand('insertHtml', html.join(''), true)
     }
   }
+  UM.commands['imagefloat'] = {
+    execCommand:function (cmd, align) {
+        var me = this,
+            range = me.selection.getRange();
+        if (!range.collapsed) {
+            var img = range.getClosedNode();
+            if (img && img.tagName == 'IMG') {
+                switch (align) {
+                    case 'left':
+                    case 'right':
+                    case 'none':
+                        var pN = img.parentNode, tmpNode, pre, next;
+                        while (dtd.$inline[pN.tagName] || pN.tagName == 'A') {
+                            pN = pN.parentNode;
+                        }
+                        tmpNode = pN;
+                        if (tmpNode.tagName == 'P' && domUtils.getStyle(tmpNode, 'text-align') == 'center') {
+                            if (!domUtils.isBody(tmpNode) && domUtils.getChildCount(tmpNode, function (node) {
+                                return !domUtils.isBr(node) && !domUtils.isWhitespace(node);
+                            }) == 1) {
+                                pre = tmpNode.previousSibling;
+                                next = tmpNode.nextSibling;
+                                if (pre && next && pre.nodeType == 1 && next.nodeType == 1 && pre.tagName == next.tagName && domUtils.isBlockElm(pre)) {
+                                    pre.appendChild(tmpNode.firstChild);
+                                    while (next.firstChild) {
+                                        pre.appendChild(next.firstChild);
+                                    }
+                                    domUtils.remove(tmpNode);
+                                    domUtils.remove(next);
+                                } else {
+                                    domUtils.setStyle(tmpNode, 'text-align', '');
+                                }
+
+
+                            }
+
+                            range.selectNode(img).select();
+                        }
+                        domUtils.setStyle(img, 'float', align == 'none' ? '' : align);
+                        if(align == 'none'){
+                            domUtils.removeAttributes(img,'align');
+                        }
+
+                        break;
+                    case 'center':
+                        if (me.queryCommandValue('imagefloat') != 'center') {
+                            pN = img.parentNode;
+                            domUtils.setStyle(img, 'float', '');
+                            domUtils.removeAttributes(img,'align');
+                            tmpNode = img;
+                            while (pN && domUtils.getChildCount(pN, function (node) {
+                                return !domUtils.isBr(node) && !domUtils.isWhitespace(node);
+                            }) == 1
+                                && (dtd.$inline[pN.tagName] || pN.tagName == 'A')) {
+                                tmpNode = pN;
+                                pN = pN.parentNode;
+                            }
+                            range.setStartBefore(tmpNode).setCursor(false);
+                            pN = me.document.createElement('div');
+                            pN.appendChild(tmpNode);
+                            domUtils.setStyle(tmpNode, 'float', '');
+
+                            me.execCommand('insertHtml', '<p id="_img_parent_tmp" style="text-align:center">' + pN.innerHTML + '</p>');
+
+                            tmpNode = me.document.getElementById('_img_parent_tmp');
+                            tmpNode.removeAttribute('id');
+                            tmpNode = tmpNode.firstChild;
+                            range.selectNode(tmpNode).select();
+                            //去掉后边多余的元素
+                            next = tmpNode.parentNode.nextSibling;
+                            if (next && domUtils.isEmptyNode(next)) {
+                                domUtils.remove(next);
+                            }
+
+                        }
+
+                        break;
+                }
+
+            }
+        }
+    },
+    queryCommandValue:function () {
+        var range = this.selection.getRange(),
+            startNode, floatStyle;
+        if (range.collapsed) {
+            return 'none';
+        }
+        startNode = range.getClosedNode();
+        if (startNode && startNode.nodeType == 1 && startNode.tagName == 'IMG') {
+            floatStyle = domUtils.getComputedStyle(startNode, 'float') || startNode.getAttribute('align');
+
+            if (floatStyle == 'none') {
+                floatStyle = domUtils.getComputedStyle(startNode.parentNode, 'text-align') == 'center' ? 'center' : floatStyle;
+            }
+            return {
+                left:1,
+                right:1,
+                center:1
+            }[floatStyle] ? floatStyle : 'none';
+        }
+        return 'none';
+
+
+    },
+    queryCommandState:function () {
+        var range = this.selection.getRange(),
+            startNode;
+
+        if (range.collapsed)  return -1;
+
+        startNode = range.getClosedNode();
+        if (startNode && startNode.nodeType == 1 && startNode.tagName == 'IMG') {
+            return 0;
+        }
+        return -1;
+    }
+  };
+  
 
   /// import core
   /// commands 段落格式,居左,居右,居中,两端对齐
@@ -10224,7 +10344,6 @@
 
       data.width && (opt.width = data.width)
       data.height && (opt.height = data.height)
-
       $.eduipopup(opt).css('zIndex', me.options.zIndex + 1)
         .addClass('edui-popup-' + name)
         .edui()
@@ -10302,6 +10421,7 @@
                 var ele = e.target || e.srcElement
                 if (ele && ele.className.indexOf('edui-scale-hand') == -1) {
                   clearTimeout(timer)
+                  me.fireEvent('contentchange')
                 }
               })
           }
@@ -10639,25 +10759,39 @@
       return options
     }
   })
-  UM.registerUI('base64Image', function (name){
+  UM.registerUI('imageUploadBySelf', function (name){
     var me = this;
     var $btn = $.eduibutton({
       icon: 'image',
       title: this.getLang('labelMap')[name] || '',
       click: function(){
-        var image = '<input type="file" class="edui-base64ImgFile" style="display:none">'
+        var image = '<input type="file" class="edui-imageUploadBySelf" style="display:none">'
         me.$container.append(image)
-        var imageInput = me.$container.find('.edui-base64ImgFile')[0]
+        var imageInput = me.$container.find('.edui-imageUploadBySelf')[0]
         imageInput.onchange = function (e) {
           var file = imageInput.files[0];
-          var reader = new FileReader()
           var imgFile;
-          reader.onload = function(e) {
-            imgFile = e.target.result
-            me.$container.find('.edui-body-container').append('<p><img src="'+ imgFile +'"/></p>')
-            imageInput.remove()
+          if(me.options.imageUploadBySelf){
+            console.log('self upload!')
+            me.fireEvent('imageUpload', file, function(url){
+              insert(url)
+            })
+            return
+          }else{
+            console.log('base64!')
+            var reader = new FileReader();
+            reader.onload = function(e) {
+              imgFile = e.target.result
+              insert(imgFile)
+            }
+            reader.readAsDataURL(file)
           }
-          reader.readAsDataURL(file)
+          function insert(url){
+            var html = '<p><img src="'+ url +'"/></p>'
+            me.execCommand('inserthtml', html, true)
+            imageInput.remove()
+            me.fireEvent('contentchange')
+          }
         }
         imageInput.click()
       },
@@ -10731,90 +10865,246 @@
 
     return $btn
   })
-  // 表格插件mini版本 只支持 插入表格 插入行 插入列 删除行 删除列 选择合并单元格 选择拆分单元格
-  UM.registerUI('inserttable insertrow insertcol deleterow deletecol splittocells mergecells', function(name){
+  
+  UM.registerUI('imagenone imageleft imageright imagecenter', function(name){
     var me = this;
     var $btn = $.eduibutton({
       icon: name,
       title: this.getLang('labelMap')[name] || '',
       click: function() {
-        me.execCommand(name)
+        var type = name.replace('image', '')
+        me.execCommand('imagefloat', type)
       }
     })
     this.addListener('selectionchange',function(){
       //切换为不可编辑时，把自己变灰
-      var state = this.queryCommandState(name);
+      var state = this.queryCommandState('imagefloat');
       $btn.edui().disabled(state == -1).active(state == 1)
     });
     return $btn
-})  
-UM.commands['inserttable'] = {
-  execCommand: function(){
-    var me = this;
-    var icon = me.$container.find('.edui-btn-inserttable').find('.edui-icon-inserttable');
-    // 获取当前鼠标指的表格
-    function getCell(e) {
-      if(e.target.id === 'hoverDefaultLay' || e.target.id === 'hoverOverLay'){
-        console.log(e.offsetY, e.offsetX)
-        var mY = e.offsetY
-        var mX = e.offsetX
-        var tr = Math.ceil(mY / 20) 
-        var td = Math.ceil(mX / 20)
-        changeSpan(tr,td)
-      }else{
-        nointable()
-        return
+  })  
+   // 表格插件mini版本 只支持 插入表格 插入行 插入列 删除行 删除列 选择合并单元格 选择拆分单元格
+   UM.registerUI('inserttable insertrow insertcol deleterow deletecol splittocells mergecells', function(name){
+      var me = this;
+      var $btn = $.eduibutton({
+        icon: name,
+        title: this.getLang('labelMap')[name] || '',
+        click: function() {
+          me.execCommand(name)
+        }
+      })
+      this.addListener('selectionchange',function(){
+        //切换为不可编辑时，把自己变灰
+        var state = this.queryCommandState(name);
+        $btn.edui().disabled(state == -1).active(state == 1)
+      });
+      return $btn
+    })  
+    UM.commands['inserttable'] = {
+      execCommand: function(){
+        function createTable(opt, tdWidth) {
+          var html = [],
+              rowsNum = opt.numRows,
+              colsNum = opt.numCols;
+          for (var r = 0; r < rowsNum; r++) {
+              html.push('<tr' + (r == 0 ? ' class="firstRow"':'') + '>');
+              for (var c = 0; c < colsNum; c++) {
+                  html.push('<td width="' + tdWidth + '"  vAlign="' + opt.tdvalign + '" >' + (browser.ie && browser.version < 11 ? domUtils.fillChar : '<br/>') + '</td>')
+              }
+              html.push('</tr>')
+          }
+          //禁止指定table-width
+          return '<table><tbody>' + html.join('') + '</tbody></table>'
+        }
+        var me = this;
+        var range = this.selection.getRange(),
+            start = range.startContainer,
+            firstParentBlock = domUtils.findParent(start, function (node) {
+                return domUtils.isBlockElm(node);
+            }, true) || me.body;
+
+        var defaultValue = getDefaultValue(me),
+            tableWidth = firstParentBlock.offsetWidth,
+            tdWidth = Math.floor(tableWidth / opt.numCols - defaultValue.tdPadding * 2 - defaultValue.tdBorder);
+
+        //todo其他属性
+        !opt.tdvalign && (opt.tdvalign = me.options.tdvalign);
+        me.execCommand("inserthtml", createTable(opt, tdWidth));
+        alert('inserttable')
       }
     }
-    function nointable(){
-      icon.find('#tableFrameSpan').html('0 行 0 列')
-      icon.find('#hoverOverLay').css('width',0 +'px')
-      icon.find('#hoverOverLay').css('height',0 +'px')
+    UM.commands['insertcol'] = {
+      queryCommandState: function (cmd) {
+        var tableItems = getTableItemsByRange(this),
+            cell = tableItems.cell;
+        return cell && (cell.tagName == "TD" || (cell.tagName == 'TH' && cell !== tableItems.tr.cells[0])) &&
+            getUETable(tableItems.table).colsNum < this.options.maxColNum ? 0 : -1;
+      },
+      execCommand: function (cmd) {
+          var rng = this.selection.getRange(),
+              bk = rng.createBookmark(true);
+          if (this.queryCommandState(cmd) == -1)return;
+          var cell = getTableItemsByRange(this).cell,
+              ut = getUETable(cell),
+              cellInfo = ut.getCellInfo(cell);
+
+          //ut.insertCol(!ut.selectedTds.length ? cellInfo.colIndex:ut.cellsRange.beginColIndex);
+          if (!ut.selectedTds.length) {
+              ut.insertCol(cellInfo.colIndex, cell);
+          } else {
+              var range = ut.cellsRange;
+              for (var i = 0, len = range.endColIndex - range.beginColIndex + 1; i < len; i++) {
+                  ut.insertCol(range.beginColIndex, cell);
+              }
+          }
+          rng.moveToBookmark(bk).select(true);
+      }
     }
-    function changeSpan(row,col){
-        var span = row +' 行 '+ col +' 列'
-        icon.find('#tableFrameSpan').html(span)
-        icon.find('#hoverOverLay').css('width',col * 20 +'px')
-        icon.find('#hoverOverLay').css('height',row * 20 +'px')
+    UM.commands['deleterow'] = {
+      queryCommandState: function () {
+        var tableItems = getTableItemsByRange(this);
+        return tableItems.cell ? 0 : -1;
+      },
+      execCommand: function () {
+          var cell = getTableItemsByRange(this).cell,
+              ut = getUETable(cell),
+              cellsRange = ut.cellsRange,
+              cellInfo = ut.getCellInfo(cell),
+              preCell = ut.getVSideCell(cell),
+              nextCell = ut.getVSideCell(cell, true),
+              rng = this.selection.getRange();
+          if (utils.isEmptyObject(cellsRange)) {
+              ut.deleteRow(cellInfo.rowIndex);
+          } else {
+              for (var i = cellsRange.beginRowIndex; i < cellsRange.endRowIndex + 1; i++) {
+                  ut.deleteRow(cellsRange.beginRowIndex);
+              }
+          }
+          var table = ut.table;
+          if (!table.getElementsByTagName('td').length) {
+              var nextSibling = table.nextSibling;
+              domUtils.remove(table);
+              if (nextSibling) {
+                  rng.setStart(nextSibling, 0).setCursor(false, true);
+              }
+          } else {
+              if (cellInfo.rowSpan == 1 || cellInfo.rowSpan == cellsRange.endRowIndex - cellsRange.beginRowIndex + 1) {
+                  if (nextCell || preCell) rng.selectNodeContents(nextCell || preCell).setCursor(false, true);
+              } else {
+                  var newCell = ut.getCell(cellInfo.rowIndex, ut.indexTable[cellInfo.rowIndex][cellInfo.colIndex].cellIndex);
+                  if (newCell) rng.selectNodeContents(newCell).setCursor(false, true);
+              }
+          }
+          if (table.getAttribute("interlaced") === "enabled")this.fireEvent("interlacetable", table);
+      }
     }
-    if(icon.find('.edui-toolbar-tableFrame').length !== 0){
-      
-      icon.find('.edui-toolbar-tableFrame').remove()
-      return
+    UM.commands['insertrow'] = {
+      queryCommandState: function () {
+        var tableItems = getTableItemsByRange(this),
+            cell = tableItems.cell;
+        return cell && (cell.tagName == "TD" || (cell.tagName == 'TH' && tableItems.tr !== tableItems.table.rows[0])) &&
+            getUETable(tableItems.table).rowsNum < this.options.maxRowNum ? 0 : -1;
+      },
+      execCommand: function () {
+          var rng = this.selection.getRange(),
+              bk = rng.createBookmark(true);
+          var tableItems = getTableItemsByRange(this),
+              cell = tableItems.cell,
+              table = tableItems.table,
+              ut = getUETable(table),
+              cellInfo = ut.getCellInfo(cell);
+          //ut.insertRow(!ut.selectedTds.length ? cellInfo.rowIndex:ut.cellsRange.beginRowIndex,'');
+          if (!ut.selectedTds.length) {
+              ut.insertRow(cellInfo.rowIndex, cell);
+          } else {
+              var range = ut.cellsRange;
+              for (var i = 0, len = range.endRowIndex - range.beginRowIndex + 1; i < len; i++) {
+                  ut.insertRow(range.beginRowIndex, cell);
+              }
+          }
+          rng.moveToBookmark(bk).select();
+          if (table.getAttribute("interlaced") === "enabled")this.fireEvent("interlacetable", table);
+      }
     }
-    icon.append('<div class="edui-toolbar-tableFrame"><span id="tableFrameSpan">0 行 0 列</span><div id="hoverDefaultLay"><div id="hoverOverLay"></div></div></div>');
-    icon.find('.edui-toolbar-tableFrame').bind('mousemove', getCell)
-    icon.find('.edui-toolbar-tableFrame').bind('mouseleave', nointable)
-  }
-}
-UM.commands['insertcol'] = {
-  execCommand: function(){
-    alert('insertcol')
-  }
-}
-UM.commands['deleterow'] = {
-  execCommand: function(){
-    alert('deleterow')
-  }
-}
-UM.commands['insertrow'] = {
-  execCommand: function(){
-    alert('insertrow')
-  }
-}
-UM.commands['deletecol'] = {
-  execCommand: function(){
-    alert('deletecol')
-  }
-}
-UM.commands['splittocells'] = {
-  execCommand: function(){
-    alert('splittocells')
-  }
-}
-UM.commands['mergecells'] = {
-  execCommand: function(){
-    alert('mergecells')
-  }
-}
+    UM.commands['deletecol'] = {
+      queryCommandState: function () {
+        var tableItems = getTableItemsByRange(this);
+        return tableItems.cell ? 0 : -1;
+      },
+      execCommand: function () {
+          var cell = getTableItemsByRange(this).cell,
+              ut = getUETable(cell),
+              range = ut.cellsRange,
+              cellInfo = ut.getCellInfo(cell),
+              preCell = ut.getHSideCell(cell),
+              nextCell = ut.getHSideCell(cell, true);
+            if (utils.isEmptyObject(range)) {
+                ut.deleteCol(cellInfo.colIndex);
+            } else {
+                for (var i = range.beginColIndex; i < range.endColIndex + 1; i++) {
+                    ut.deleteCol(range.beginColIndex);
+                }
+            }
+            var table = ut.table,
+                rng = this.selection.getRange();
+
+            if (!table.getElementsByTagName('td').length) {
+                var nextSibling = table.nextSibling;
+                domUtils.remove(table);
+                if (nextSibling) {
+                    rng.setStart(nextSibling, 0).setCursor(false, true);
+                }
+            } else {
+                if (domUtils.inDoc(cell, this.document)) {
+                    rng.setStart(cell, 0).setCursor(false, true);
+                } else {
+                    if (nextCell && domUtils.inDoc(nextCell, this.document)) {
+                        rng.selectNodeContents(nextCell).setCursor(false, true);
+                    } else {
+                        if (preCell && domUtils.inDoc(preCell, this.document)) {
+                            rng.selectNodeContents(preCell).setCursor(true, true);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    UM.commands['splittocells'] = {
+      queryCommandState: function () {
+        var tableItems = getTableItemsByRange(this),
+            cell = tableItems.cell;
+        if (!cell) return -1;
+        var ut = getUETable(tableItems.table);
+        if (ut.selectedTds.length > 0) return -1;
+        return cell && (cell.colSpan > 1 || cell.rowSpan > 1) ? 0 : -1;
+      },
+      execCommand: function () {
+          var rng = this.selection.getRange(),
+              bk = rng.createBookmark(true);
+          var cell = getTableItemsByRange(this).cell,
+              ut = getUETable(cell);
+          ut.splitToCells(cell);
+          rng.moveToBookmark(bk).select();
+          alert('splittocells')
+      }
+    }
+    UM.commands['mergecells'] = {
+      queryCommandState: function () {
+        return getUETableBySelected(this) ? 0 : -1;
+      },
+      execCommand: function () {
+          var ut = getUETableBySelected(this);
+          if (ut && ut.selectedTds.length) {
+              var cell = ut.selectedTds[0];
+              ut.mergeRange();
+              var rng = this.selection.getRange();
+              if (domUtils.isEmptyBlock(cell)) {
+                  rng.setStart(cell, 0).collapse(true)
+              } else {
+                  rng.selectNodeContents(cell)
+              }
+              rng.select();
+          }
+      }
+    }
 })(jQuery)

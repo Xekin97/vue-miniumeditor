@@ -1,6 +1,6 @@
 {
   "name": "vue-miniueditor",
-  "version": "1.0.8",
+  "version": "1.0.13",
   "description": "base on Baidu Umeditor",
   "main": "lib/vUeditor.min.js",
   "author": "Xekin-FE<xekin2017@Gmail.com>",

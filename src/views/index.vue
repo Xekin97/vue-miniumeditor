@@ -7,6 +7,7 @@
       :content="content"
       @ready="ueditorReady"
       @change="ueditorChange"
+      @imageUpload="divUpload"
     ></v-ueditor>
   </div>
 </template>
@@ -22,13 +23,15 @@ export default {
       content: '',
       config: {
             convertImageToBase64Enable:true,
+            // imageUploadBySelf: true,
             initialFrameWidth:800, //编辑器宽高
             initialFrameHeight:400,
             toolbar: [
             'source | fontfamily paragraph fontsize | undo redo | bold italic underline strikethrough | superscript subscript | forecolor backcolor | removeformat |',
             'insertorderedlist insertunorderedlist | selectall cleardoc',
             '| justifyleft justifycenter justifyright justifyjustify |',
-            'link unlink | emotion base64Image video',
+            'imagenone imageleft imageright imagecenter |',
+            'link unlink | emotion video imageUploadBySelf',
             '| inserttable insertrow insertcol deleterow deletecol splittocells mergecells',
             '| horizontal print preview fullscreen', 'drafts', 'formula'
             ]
@@ -42,6 +45,10 @@ export default {
     ueditorChange (ue) {
       console.log(ue)
     },
+    divUpload(file, callback){
+      console.log('event back here', file)
+      callback('no url')
+    }
   },
   mounted () {
     setTimeout(() => {

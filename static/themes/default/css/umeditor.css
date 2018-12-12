@@ -212,8 +212,21 @@
 .edui-btn-toolbar .edui-btn .edui-icon-formula {
     background-position: -80px -20px;
 }
+/* 图片浮动 */
+.edui-btn-toolbar .edui-btn .edui-icon-imageleft{
+    background-position: -500px -40px;
+}
+.edui-btn-toolbar .edui-btn .edui-icon-imageright{
+    background-position: -520px -40px;
+}
+.edui-btn-toolbar .edui-btn .edui-icon-imagenone{
+    background-position: -480px -40px;
+}
+.edui-btn-toolbar .edui-btn .edui-icon-imagecenter{
+    background-position: -540px -40px;
+}
+/* 插入表格 */
 .edui-btn-toolbar .edui-btn .edui-icon-inserttable{
-    position: relative;
     background-position: -580px -20px;
 }
 .edui-btn-toolbar .edui-btn .edui-icon-insertrow{
