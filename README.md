@@ -22,9 +22,16 @@ config:{
 
 -----------------------------------------------------@1.0.13
 
-新增图片浮动功能 支持图文排版方式 对应配置为 imagenone 默认 imageleft 左浮动 imageright 右浮动 imagecenter 位于中间
-新增富文本中图片自定义上传功能 更改原先 base64Image 配置名称为 imageUploadBySelf， 并在 config 中配置 imageUploadBySelf 为 true,
-即可在项目中通过 @imageUpload 事件拿到上传文件对象和回调函数，上传完毕后返回 url 传入 callback 以插入到富文本中
+新增图片浮动功能 支持图文排版方式 对应配置为 
+
+imagenone 默认 imageleft 左浮动 imageright 右浮动 imagecenter 位于中间
+
+新增富文本中图片自定义上传功能 更改原先 base64Image 配置名称为 imageUploadBySelf，
+并在 config 中配置 imageUploadBySelf 为 true,
+
+即可在项目中通过 @imageUpload 事件拿到上传文件对象和回调函数，
+上传完毕后返回 url 传入 callback 以插入到富文本中
+
 具体方法详见代码
 
 ![效果预览](https://github.com/Xekin-FE/vue-miniumeditor/blob/master/src/assets/ReadMe.png)
